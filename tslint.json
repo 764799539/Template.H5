@@ -1,19 +1,160 @@
 {
-  "defaultSeverity": "warning",
-  "extends": [
-    "tslint:recommended"
-  ],
-  "linterOptions": {
-    "exclude": [
-      "node_modules/**"
-    ]
-  },
-  "rules": {
-    "indent": [true, "spaces", 2],
-    "interface-name": false,
-    "no-consecutive-blank-lines": false,
-    "object-literal-sort-keys": false,
-    "ordered-imports": false,
-    "quotemark": [true, "single"]
-  }
+    "defaultSeverity": "warning",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "linterOptions": {
+        "exclude": [
+            "node_modules/**"
+        ]
+    },
+    "rules": {
+        "quotemark": false, // 字符串文字需要单引号或双引号。
+        "member-access": false, // 需要类成员的显式可见性声明。
+        "ordered-imports": false, // 要求将import语句按字母顺序排列并进行分组。
+        "object-literal-sort-keys": false, // 检查对象文字中键的排序。
+        "no-consecutive-blank-lines": false, // 不允许连续出现一个或多个空行。
+        "no-shadowed-variable": true, // 不允许隐藏变量声明。
+        "no-trailing-whitespace": true, // 不允许在行尾添加尾随空格。
+        "semicolon": false, // 是否分号结尾
+        "trailing-comma": false, // 是否强象添加逗号
+        "eofline": false, // 是否末尾另起一行
+        "prefer-conditional-expression": false, // for (... in ...)语句必须用if语句过滤
+        "curly": false, //for if do while 要有括号
+        "forin": false, //用for in 必须用if进行过滤
+        "import-blacklist": true, //允许使用import require导入具体的模块
+        "no-arg": true, //不允许使用 argument.callee
+        "no-bitwise": false, //不允许使用按位运算符
+        "no-console": false, //不能使用console
+        "no-construct": true, //不允许使用 String/Number/Boolean的构造函数
+        "no-debugger": false, //不允许使用debugger
+        "no-duplicate-super": true, //构造函数两次用super会发出警告
+        "no-empty": true, //不允许空的块
+        "no-eval": false, //不允许使用eval
+        "no-floating-promises": false, //必须正确处理promise的返回函数
+        "no-for-in-array": false, //不允许使用for in 遍历数组
+        "no-implicit-dependencies": false, //不允许在项目的package.json中导入未列为依赖项的模块
+        "no-inferred-empty-object-type": false, //不允许在函数和构造函数中使用{}的类型推断
+        "no-invalid-template-strings": true, //警告在非模板字符中使用${
+        "no-invalid-this": true, //不允许在非class中使用 this关键字
+        "no-misused-new": true, //禁止定义构造函数或new class
+        "no-null-keyword": false, //不允许使用null关键字
+        "no-object-literal-type-assertion": false, //禁止object出现在类型断言表达式中
+        "no-return-await": true, //不允许return await
+        "arrow-parens": false, //箭头函数定义的参数需要括号
+        "adjacent-overload-signatures": false, //  Enforces function overloads to be consecutive.
+        "ban-comma-operator": true, //禁止逗号运算符。
+        "no-any": false, //不需使用any类型
+        "no-empty-interface": true, //禁止空接口 {}
+        "no-internal-module": true, //不允许内部模块
+        "no-magic-numbers": false, //不允许在变量赋值之外使用常量数值。当没有指定允许值列表时，默认允许-1,0和1
+        "no-namespace": [
+            true,
+            "allpw-declarations"
+        ], //不允许使用内部modules和命名空间
+        "no-non-null-assertion": true, //不允许使用!后缀操作符的非空断言。
+        "no-parameter-reassignment": false, //不允许重新分配参数
+        "no-reference": true, // 禁止使用/// <reference path=> 导入 ，使用import代替
+        "no-unnecessary-type-assertion": false, //如果类型断言没有改变表达式的类型就发出警告
+        "no-var-requires": false, //不允许使用var module = require("module"),用 import foo = require('foo')导入
+        "prefer-for-of": false, //建议使用for(..of)
+        "promise-function-async": false, //要求异步函数返回promise
+        "max-classes-per-file": [
+            true,
+            2
+        ], // 一个脚本最多几个申明类
+        "prefer-const": true, // 提示可以用const的地方
+        "member-ordering": [ // 设置修饰符顺序
+            true,
+            {
+                "order": [
+                    "public-static-field",
+                    "public-static-method",
+                    "protected-static-field",
+                    "protected-static-method",
+                    "private-static-field",
+                    "private-static-method",
+                    "public-instance-field",
+                    "protected-instance-field",
+                    "private-instance-field",
+                    "public-constructor",
+                    "protected-constructor",
+                    "private-constructor",
+                    "public-instance-method",
+                    "protected-instance-method",
+                    "private-instance-method"
+                ]
+            }
+        ],
+        // "no-empty-interface":true,// 不允许空接口
+        // 功能特性
+        "only-arrow-functions": true, //禁止使用传统（非箭头）函数表达式
+        "no-string-literal": false,
+        "ban-types": false, // 禁止内置原始类型
+        "await-promise": true, // 不允许没有Promise的情况下使用await
+        "no-conditional-assignment": true, // do while/for/if/while 语句中将会对例如if(a=b)进行检查
+        // "no-invalid-this":true,// 不允许在class之外使用this
+        // "no-null-keyword":true,// 不允许使用null,使用undefined代替null，指代空指针对象
+        "no-sparse-arrays": true, // 不允许array中有空元素
+        "no-string-throw": true, // 不允许throw一个字符串
+        "no-switch-case-fall-through": true, // 不允许case段落中在没有使用breack的情况下，在新启一段case逻辑
+        "no-unsafe-finally": true, // 不允许在finally语句中使用return/continue/break/throw
+        "no-unused-expression": true, // 不允许使用未使用的表达式
+        "no-use-before-declare": true, // 在使用前必须声明
+        "no-var-keyword": true, // 不允许使用var
+        "radix": false, // parseInt时，必须输入radix精度参数
+        // "restrict-plus-operands":true,// 不允许自动类型转换，如果已设置不允许使用关键字var该设置无效
+        "triple-equals": true, // 必须使用恒等号，进行等于比较
+        "use-isnan": false, // 只允许使用isNaN方法检查数字是否有效
+        // 维护性功能
+        "indent": [
+            true,
+            "spaces",
+            4
+        ], // 每行开始以4个空格符开始
+        "max-file-line-count": [
+            false,
+            1000
+        ], // 定义每个文件代码行数
+        "max-line-length": [
+            true,
+            300
+        ], // 定义每行代码数
+        "no-default-export": false, // 禁止使用export default关键字，因为当export对象名称发生变化时，需要修改import中的对象名。https://github.com/palantir/tslint/issues/1182#issue-151780453
+        "no-duplicate-imports": true, // 禁止在一个文件内，多次引用同一module
+        // 格式
+        "align": [
+            false,
+            "parameters",
+            "arguments",
+            "statements",
+            "members",
+            "elements"
+        ], // 定义对齐风格
+        "array-type": [
+            false,
+            "array"
+        ], // 建议使用T[]方式声明一个数组对象
+        "class-name": false, // 类名以大驼峰格式命名
+        "comment-format": [
+            true,
+            "check-space"
+        ], // 定义注释格式
+        "encoding": true, // 定义编码格式默认utf-8
+        "import-spacing": true, // import关键字后加空格
+        "interface-name": [
+            true,
+            "always-prefix"
+        ], // interface必须以I开头
+        "jsdoc-format": false, // 注释基于jsdoc风格
+        "new-parens": true, // 调用构造函数时需要用括号
+        "no-unnecessary-initializer": false, // 不允许没有必要的初始化
+        "variable-name": [
+            false,
+            "check-format", // 定义变量命名规则
+            "allow-leading-underscore",
+            "allow-trailing-underscore",
+            "ban-keywords"
+        ]
+    }
 }
