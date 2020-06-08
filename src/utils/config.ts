@@ -1,5 +1,5 @@
 // import env from '../../build/env'
-let env = 'development'
+const env = 'development'
 
 // 系统管理接口请求基地址
 export const SystemApiUrl = env === 'development'

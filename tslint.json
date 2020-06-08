@@ -88,7 +88,7 @@
         ],
         // "no-empty-interface":true,// 不允许空接口
         // 功能特性
-        "only-arrow-functions": true, //禁止使用传统（非箭头）函数表达式
+        "only-arrow-functions": false, //禁止使用传统（非箭头）函数表达式
         "no-string-literal": false,
         "ban-types": false, // 禁止内置原始类型
         "await-promise": true, // 不允许没有Promise的情况下使用await

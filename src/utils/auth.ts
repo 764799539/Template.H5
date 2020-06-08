@@ -13,10 +13,10 @@ export function removeToken() {
 }
 
 export function CheckUsecase(value: string) {
-    let session = window.localStorage.getItem('UsecaseList')
-    if (session != null) {
-        let sessionlist = session.split(',')
-        if (sessionlist.find(item => { return item === value })) {
+    const session = window.localStorage.getItem('UsecaseList')
+    if (session !== null) {
+        const sessionlist = session.split(',')
+        if (sessionlist.find((item) => item === value)) {
             return true
         }
     }

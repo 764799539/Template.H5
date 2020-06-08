@@ -2,55 +2,58 @@
 import axios from 'axios'
 import { getToken, setToken } from '@/utils/auth'
 import { SystemApiUrl } from '../utils/config'
-import { Notice, Modal } from 'view-design';
+import { Notice, Modal } from 'view-design'
 import store from '@/store/index'
-let NoticeEntity: any = Notice
-let ModalEntity: any = Modal
+const NoticeEntity: any = Notice
+const ModalEntity: any = Modal
 // 创建axios实例
 const service = axios.create({
     baseURL: SystemApiUrl, // api的base_url
     timeout: 30000,        // 请求超时时间ms
     responseType: 'json',
     withCredentials: true,
-    transformRequest: [function (data) {
+    transformRequest: [(data) => {
         // 这里可以在发送请求之前对请求数据做处理，比如form-data格式化等，这里可以使用开头引入的Qs
         // data = qs.stringify(data)
         return data
     }],
-    transformResponse: [function (data) {
+    transformResponse: [(data) => {
         // 这里提前处理返回的数据
         return data
     }]
 })
 
 // request拦截器
-service.interceptors.request.use(config => {
+service.interceptors.request.use((config) => {
     // Do something before request is sent
-    config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
-    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    let key = 'Authorization'
+    config.headers[key] = 'Bearer ' + getToken() // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
+    key = 'Content-Type'
+    config.headers[key] = 'application/x-www-form-urlencoded'
     return config
-}, error => {
+}, ((error) => {
     // Do something with request error
     // console.log(error) // for debug
     Promise.reject(error)
-})
+}))
 
 // response 拦截器
 service.interceptors.response.use(
-    response => {
+    (response) => {
         // 处理excel文件
         if (response.headers && (response.headers['content-type'] === 'application/x-msdownload' || response.headers['content-type'] === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
-            let blob = new Blob([response.data], { type: 'application/vnd.ms-excel' })
-            let a = document.createElement('a')
-            let url = window.URL.createObjectURL(blob)
-            let date = new Date()
-            let year = date.getFullYear()
-            let month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
-            let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-            let hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-            let minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-            let second = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
-            let filename = 'Excel_' + year + '-' + month + '-' + day + ' ' + hour + '点' + minute + '分' + second + '秒' + '.xls'
+            const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' })
+            const a = document.createElement('a')
+            const url = window.URL.createObjectURL(blob)
+            const date = new Date()
+            const year = date.getFullYear()
+            const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
+            const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
+            const hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
+            const minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
+            const second = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
+            let filename = 'Excel_' + year + '-' + month + '-' + day + ' '
+            filename += hour + '点' + minute + '分' + second + '秒' + '.xls'
             a.href = url
             a.download = filename
             a.click()
@@ -69,7 +72,7 @@ service.interceptors.response.use(
         }
         return response.data
     },
-    error => {
+    (error) => {
         // let LoginStatus = store.state.erp.LoginStatus
         // if (!LoginStatus) LoginStatus = 1
         if (error.code === 'ECONNABORTED') {
